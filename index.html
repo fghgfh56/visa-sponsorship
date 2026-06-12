@@ -620,22 +620,38 @@ function detectCountry(loc) {
   return null;
 }
 
-/* ---- Fetch up to N API pages, keep visa_sponsorship === true ---- */
-async function fetchJobs(maxPages = 5) {
+/* ---- Single call: proxy aggregates 15 API pages server-side ---- */
+let visaOnly = true;
+let allJobsRaw = [];
+
+async function fetchJobs() {
   loadEl.style.display = 'block';
   errEl.style.display = 'none';
   try {
-    for (let p = 1; p <= maxPages; p++) {
-      const r = await fetch(`${API_BASE}?page=${p}`);
-      if (!r.ok) throw new Error(`API returned ${r.status}`);
-      const json = await r.json();
-      const batch = (json.data || []).filter(j => j.visa_sponsorship === true);
-      allJobs.push(...batch);
-      if (!json.links || !json.links.next) break;
+    const r = await fetch(API_BASE);
+    if (!r.ok) throw new Error(`API returned ${r.status}`);
+    const json = await r.json();
+
+    allJobsRaw = json.all_jobs || [];
+    const visaJobs = json.visa_jobs || [];
+
+    if (visaJobs.length > 0) {
+      allJobs = visaJobs;
+      visaOnly = true;
+    } else {
+      // fallback: no visa-flagged jobs live right now — show everything with a notice
+      allJobs = allJobsRaw;
+      visaOnly = false;
+      const notice = document.createElement('div');
+      notice.id = 'visaNotice';
+      notice.style.cssText = 'background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.4);color:var(--amber);padding:12px 18px;border-radius:10px;font-size:.85rem;margin-bottom:14px;line-height:1.6';
+      notice.innerHTML = '⚠ No jobs are <strong>visa-flagged</strong> on the source right now — showing all latest EU roles instead. Many German companies sponsor visas even when not flagged; check each listing.';
+      grid.prepend(notice);
     }
+
     loadEl.style.display = 'none';
     if (allJobs.length === 0) {
-      showError('No visa-sponsored roles found right now. The API may have rotated listings — try again later.');
+      showError('The job source returned no listings at all. Try again in a few minutes.');
       return;
     }
     render();
@@ -699,7 +715,7 @@ function render() {
   viewPage = Math.min(viewPage, totalPages);
   const slice = list.slice((viewPage - 1) * PER_PAGE, viewPage * PER_PAGE);
 
-  countEl.innerHTML = `<strong>${list.length}</strong> visa-sponsored roles found <span style="font-size:.78rem;color:var(--muted)">· live via Arbeitnow</span>`;
+  countEl.innerHTML = `<strong>${list.length}</strong> ${visaOnly ? 'visa-sponsored' : 'EU'} roles found <span style="font-size:.78rem;color:var(--muted)">· live via Arbeitnow</span>`;
 
   grid.querySelectorAll('.job-card').forEach(c => c.remove());
 
@@ -718,7 +734,7 @@ function render() {
         <div class="job-title">${esc(j.title)}</div>
         <div class="job-company"><strong>${esc(j.company_name)}</strong> · ${esc(j.location || 'Europe')}</div>
         <div class="job-tags">
-          <span class="tag tag-visa">✓ Visa Sponsorship</span>
+          ${j.visa_sponsorship ? '<span class="tag tag-visa">✓ Visa Sponsorship</span>' : ''}
           <span class="tag tag-loc">${flag} ${esc(countryLabel)}</span>
           ${j.remote ? '<span class="tag tag-fresh">Remote OK</span>' : ''}
           ${jobTypes.map(t => `<span class="tag tag-role">${esc(t)}</span>`).join('')}
