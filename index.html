@@ -555,11 +555,14 @@
   <main>
     <div class="jobs-header">
       <div class="jobs-count" id="jobsCount"><strong>…</strong> loading live roles…</div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button id="fresherToggle" style="background:rgba(34,197,94,0.1);border:1px solid var(--green);color:var(--green);padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif">🎓 Fresher Only: ON</button>
       <select class="sort-select" id="sortSelect">
         <option value="recent">Sort: Most Recent</option>
         <option value="company">Sort: Company A–Z</option>
         <option value="remote">Sort: Remote First</option>
       </select>
+      </div>
     </div>
 
     <div class="jobs-grid" id="jobsGrid">
@@ -623,6 +626,7 @@ function detectCountry(loc) {
 /* ---- Single call: proxy aggregates 15 API pages server-side ---- */
 let visaOnly = true;
 let allJobsRaw = [];
+let fresherOnly = true;
 
 async function fetchJobs() {
   loadEl.style.display = 'block';
@@ -673,6 +677,7 @@ function showError(html) {
 /* ---- Filter + sort + paginate + render ---- */
 function getFiltered() {
   let list = allJobs;
+  if (fresherOnly) list = list.filter(j => j.fresher === true);
   if (query) {
     const q = query.toLowerCase();
     list = list.filter(j =>
@@ -715,7 +720,7 @@ function render() {
   viewPage = Math.min(viewPage, totalPages);
   const slice = list.slice((viewPage - 1) * PER_PAGE, viewPage * PER_PAGE);
 
-  countEl.innerHTML = `<strong>${list.length}</strong> ${visaOnly ? 'visa-sponsored' : 'EU'} roles found <span style="font-size:.78rem;color:var(--muted)">· live via Arbeitnow</span>`;
+  countEl.innerHTML = `<strong>${list.length}</strong> ${visaOnly ? 'visa-sponsored' : 'EU'} roles found <span style="font-size:.78rem;color:var(--muted)">· live: Arbeitnow + EURES</span>`;
 
   grid.querySelectorAll('.job-card').forEach(c => c.remove());
 
@@ -736,6 +741,7 @@ function render() {
         <div class="job-tags">
           ${j.visa_sponsorship ? '<span class="tag tag-visa">✓ Visa Sponsorship</span>' : ''}
           <span class="tag tag-loc">${flag} ${esc(countryLabel)}</span>
+          ${j.fresher ? '<span class="tag tag-fresh">🎓 Fresher</span>' : ''}
           ${j.remote ? '<span class="tag tag-fresh">Remote OK</span>' : ''}
           ${jobTypes.map(t => `<span class="tag tag-role">${esc(t)}</span>`).join('')}
           ${tags.map(t => `<span class="tag tag-stack">${esc(t)}</span>`).join('')}
@@ -790,6 +796,13 @@ document.querySelectorAll('.chip').forEach(chip => {
 const styleEl = document.createElement('style');
 styleEl.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
 document.head.appendChild(styleEl);
+
+document.getElementById('fresherToggle').addEventListener('click', function() {
+  fresherOnly = !fresherOnly;
+  this.textContent = fresherOnly ? '🎓 Fresher Only: ON' : '🎓 Fresher Only: OFF';
+  this.style.opacity = fresherOnly ? '1' : '0.5';
+  viewPage = 1; render();
+});
 
 const _origRender = render;
 render = function() {
