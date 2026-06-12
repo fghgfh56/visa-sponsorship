@@ -2,19 +2,41 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
 
-  const page = req.query.page || 1;
+  const PAGES = 15;
 
   try {
-    const r = await fetch(`https://www.arbeitnow.com/api/job-board-api?page=${page}`, {
-      headers: { 'User-Agent': 'EuroAI-Jobs/1.0' }
-    });
+    const urls = Array.from({ length: PAGES }, (_, i) =>
+      `https://www.arbeitnow.com/api/job-board-api?page=${i + 1}`
+    );
 
-    if (!r.ok) {
-      return res.status(r.status).json({ error: `Arbeitnow API returned ${r.status}` });
+    const responses = await Promise.allSettled(
+      urls.map(u => fetch(u, { headers: { 'User-Agent': 'EuroAI-Jobs/1.0' } }))
+    );
+
+    let all = [];
+    for (const r of responses) {
+      if (r.status === 'fulfilled' && r.value.ok) {
+        const json = await r.value.json();
+        if (Array.isArray(json.data)) all.push(...json.data);
+      }
     }
 
-    const data = await r.json();
-    return res.status(200).json(data);
+    // de-duplicate by slug
+    const seen = new Set();
+    all = all.filter(j => {
+      if (seen.has(j.slug)) return false;
+      seen.add(j.slug);
+      return true;
+    });
+
+    const visa = all.filter(j => j.visa_sponsorship === true);
+
+    return res.status(200).json({
+      total: all.length,
+      visa_count: visa.length,
+      visa_jobs: visa,
+      all_jobs: all
+    });
 
   } catch (err) {
     return res.status(500).json({ error: err.message });
