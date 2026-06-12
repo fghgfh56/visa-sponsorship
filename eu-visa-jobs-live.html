@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EuroAI Jobs — Visa Sponsored AI/ML/DL Roles for Freshers</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:    #0B1426;
+    --navy2:   #111d35;
+    --navy3:   #172440;
+    --border:  #1e3158;
+    --blue:    #3B82F6;
+    --blue2:   #2563eb;
+    --teal:    #14B8A6;
+    --amber:   #F59E0B;
+    --green:   #22c55e;
+    --red:     #f87171;
+    --text:    #F0F4FF;
+    --muted:   #8ba3c7;
+    --card:    #0f1e38;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(11,20,38,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-brand {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.25rem; font-weight: 700;
+    color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-brand .dot { color: var(--blue); }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a {
+    color: var(--muted); font-size: 0.875rem; text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--blue); color: #fff;
+    padding: 7px 18px; border-radius: 6px;
+    font-size: 0.85rem; font-weight: 600; text-decoration: none;
+    transition: background .2s;
+  }
+  .nav-cta:hover { background: var(--blue2); }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(59,130,246,0.13) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.3);
+    color: var(--blue); font-size: 0.8rem; font-weight: 600;
+    letter-spacing: .05em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow .pulse {
+    width: 7px; height: 7px; background: var(--green);
+    border-radius: 50%; animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: .5; transform: scale(1.4); }
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 700; line-height: 1.15;
+    max-width: 780px; margin: 0 auto 1.2rem;
+  }
+  .hero h1 .accent { color: var(--blue); }
+  .hero p {
+    color: var(--muted); font-size: 1.1rem;
+    max-width: 560px; margin: 0 auto 2.5rem;
+  }
+  .hero-flags {
+    display: flex; justify-content: center; gap: 10px;
+    flex-wrap: wrap; margin-bottom: 2.5rem;
+  }
+  .flag-chip {
+    background: var(--navy3); border: 1px solid var(--border);
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 0.82rem; color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+    transition: border-color .2s, color .2s;
+    cursor: pointer;
+  }
+  .flag-chip:hover { border-color: var(--blue); color: var(--text); }
+  .flag-chip.active { border-color: var(--blue); color: var(--blue); background: rgba(59,130,246,0.08); }
+
+  /* ─── SEARCH BAR ─── */
+  .search-wrap {
+    max-width: 700px; margin: 0 auto;
+    display: flex; gap: 10px;
+  }
+  .search-input {
+    flex: 1; background: var(--navy3);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; color: var(--text); font-size: 0.95rem;
+    outline: none; transition: border-color .2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .search-input::placeholder { color: var(--muted); }
+  .search-input:focus { border-color: var(--blue); }
+  .search-btn {
+    background: var(--blue); color: #fff;
+    border: none; border-radius: 10px;
+    padding: 14px 26px; font-weight: 600;
+    font-size: 0.95rem; cursor: pointer;
+    transition: background .2s; font-family: 'Inter', sans-serif;
+  }
+  .search-btn:hover { background: var(--blue2); }
+
+  /* ─── STATS ─── */
+  .stats {
+    display: flex; justify-content: center; gap: 3rem;
+    padding: 2.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.9rem; font-weight: 700;
+    color: var(--text);
+  }
+  .stat-num span { color: var(--blue); }
+  .stat-label { color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+
+  /* ─── MAIN LAYOUT ─── */
+  .main-layout {
+    max-width: 1280px; margin: 0 auto;
+    padding: 2.5rem 2rem;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    position: sticky; top: 80px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+  .sidebar h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 1rem; padding-bottom: .6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .filter-group { margin-bottom: 1.5rem; }
+  .filter-label {
+    font-size: 0.82rem; font-weight: 600; color: var(--muted);
+    margin-bottom: .6rem; display: block;
+  }
+  .filter-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip {
+    background: var(--navy3); border: 1px solid var(--border);
+    color: var(--muted); font-size: 0.78rem; padding: 4px 11px;
+    border-radius: 16px; cursor: pointer; transition: all .2s;
+    user-select: none;
+  }
+  .chip:hover { border-color: var(--blue); color: var(--text); }
+  .chip.on { background: rgba(59,130,246,0.15); border-color: var(--blue); color: var(--blue); }
+  .chip.teal.on { background: rgba(20,184,166,0.12); border-color: var(--teal); color: var(--teal); }
+
+  .range-row { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 6px; }
+  input[type="range"] {
+    width: 100%; accent-color: var(--blue); cursor: pointer;
+  }
+
+  /* ─── JOB GRID ─── */
+  .jobs-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.2rem; flex-wrap: wrap; gap: .5rem;
+  }
+  .jobs-count {
+    font-size: 0.9rem; color: var(--muted);
+  }
+  .jobs-count strong { color: var(--text); }
+  .sort-select {
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--text); font-size: 0.82rem;
+    padding: 6px 12px; border-radius: 8px; outline: none; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .jobs-grid { display: flex; flex-direction: column; gap: 14px; }
+
+  /* ─── JOB CARD ─── */
+  .job-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem 1.6rem;
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: 1rem;
+    align-items: start;
+    cursor: pointer;
+    transition: border-color .2s, transform .15s, box-shadow .2s;
+    position: relative;
+  }
+  .job-card:hover {
+    border-color: var(--blue);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px rgba(59,130,246,0.12);
+  }
+  .job-card.featured {
+    border-color: rgba(245,158,11,0.4);
+    background: linear-gradient(135deg, #0f1e38 0%, #141e30 100%);
+  }
+  .featured-badge {
+    position: absolute; top: -1px; right: 16px;
+    background: var(--amber); color: #000;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: .06em;
+    text-transform: uppercase; padding: 3px 10px;
+    border-radius: 0 0 8px 8px;
+  }
+  .company-logo {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: var(--navy3); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+  .job-main {}
+  .job-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem; font-weight: 600; color: var(--text);
+    margin-bottom: 3px;
+  }
+  .job-company {
+    font-size: 0.85rem; color: var(--muted); margin-bottom: 10px;
+  }
+  .job-company strong { color: var(--text); }
+  .job-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 0.72rem; font-weight: 500; padding: 3px 9px;
+    border-radius: 12px; border: 1px solid;
+  }
+  .tag-role  { background: rgba(59,130,246,0.1);  border-color: rgba(59,130,246,0.3);  color: #93c5fd; }
+  .tag-visa  { background: rgba(34,197,94,0.1);   border-color: rgba(34,197,94,0.3);   color: #86efac; }
+  .tag-loc   { background: rgba(20,184,166,0.08); border-color: rgba(20,184,166,0.25); color: #5eead4; }
+  .tag-stack { background: rgba(168,85,247,0.1);  border-color: rgba(168,85,247,0.3);  color: #c4b5fd; }
+  .tag-fresh { background: rgba(245,158,11,0.1);  border-color: rgba(245,158,11,0.3);  color: #fcd34d; }
+
+  .job-meta {
+    text-align: right; flex-shrink: 0;
+    display: flex; flex-direction: column;
+    align-items: flex-end; gap: 8px;
+  }
+  .job-salary {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem; font-weight: 600; color: var(--text);
+  }
+  .job-salary small { font-weight: 400; color: var(--muted); font-size: 0.78rem; font-family: 'Inter', sans-serif; }
+  .job-time { font-size: 0.75rem; color: var(--muted); }
+  .apply-btn {
+    background: var(--blue); color: #fff; border: none;
+    padding: 8px 18px; border-radius: 8px;
+    font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; transition: background .2s;
+    font-family: 'Inter', sans-serif; white-space: nowrap;
+  }
+  .apply-btn:hover { background: var(--blue2); }
+  .apply-btn.outline {
+    background: transparent; border: 1px solid var(--border); color: var(--muted);
+  }
+  .apply-btn.outline:hover { border-color: var(--blue); color: var(--text); background: rgba(59,130,246,0.08); }
+
+  /* ─── VISA GUIDE BANNER ─── */
+  .visa-banner {
+    max-width: 1280px; margin: 0 auto 2rem;
+    padding: 0 2rem;
+  }
+  .visa-banner-inner {
+    background: linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(20,184,166,0.08) 100%);
+    border: 1px solid rgba(59,130,246,0.25);
+    border-radius: 16px; padding: 2rem 2.5rem;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 1.5rem; align-items: center;
+  }
+  .visa-banner h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem; font-weight: 700; margin-bottom: .4rem;
+  }
+  .visa-banner p { font-size: 0.88rem; color: var(--muted); }
+  .visa-steps {
+    display: flex; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap;
+  }
+  .visa-step {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; color: var(--muted);
+  }
+  .step-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--blue); color: #fff;
+    font-size: 0.7rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .learn-btn {
+    background: var(--blue); color: #fff; border: none;
+    padding: 12px 24px; border-radius: 10px;
+    font-weight: 600; font-size: 0.9rem; cursor: pointer;
+    white-space: nowrap; font-family: 'Inter', sans-serif;
+    transition: background .2s;
+  }
+  .learn-btn:hover { background: var(--blue2); }
+
+  /* ─── PAGINATION ─── */
+  .pagination {
+    display: flex; justify-content: center; gap: 8px;
+    margin-top: 2.5rem;
+  }
+  .page-btn {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--muted); font-size: 0.85rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s; font-family: 'Inter', sans-serif;
+  }
+  .page-btn:hover, .page-btn.active {
+    background: var(--blue); border-color: var(--blue); color: #fff;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    text-align: center; color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 4rem;
+  }
+  footer strong { color: var(--text); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .main-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .job-card { grid-template-columns: 48px 1fr; }
+    .job-meta { grid-column: 2; flex-direction: row; align-items: center; justify-content: flex-start; text-align: left; }
+    .visa-banner-inner { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2rem; }
+    .search-wrap { flex-direction: column; }
+    .stats { gap: 1.5rem; }
+    .job-card { grid-template-columns: 1fr; }
+    .company-logo { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-brand">EuroAI<span class="dot">.</span>jobs</div>
+  <div class="nav-links">
+    <a href="#">Find Jobs</a>
+    <a href="#">Visa Guide</a>
+    <a href="#">Companies</a>
+    <a href="#">Blog</a>
+    <a href="#" class="nav-cta">Post a Job</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="pulse"></span>
+    <span id="liveCount">live</span> visa-sponsored roles
+  </div>
+  <h1>Land Your First AI Job in <span class="accent">Europe</span> — Visa Sponsored</h1>
+  <p>Curated AI · ML · DL engineering roles in Europe that sponsor work visas for fresh graduates. No experience filter, no gatekeeping.</p>
+
+  <div class="hero-flags">
+    <div class="flag-chip active">🇩🇪 Germany</div>
+    <div class="flag-chip active">🇳🇱 Netherlands</div>
+    <div class="flag-chip active">🇫🇷 France</div>
+    <div class="flag-chip">🇸🇪 Sweden</div>
+    <div class="flag-chip">🇨🇭 Switzerland</div>
+    <div class="flag-chip">🇪🇸 Spain</div>
+    <div class="flag-chip">🇵🇱 Poland</div>
+    <div class="flag-chip">🇦🇹 Austria</div>
+    <div class="flag-chip">🇵🇹 Portugal</div>
+  </div>
+
+  <div class="search-wrap">
+    <input class="search-input" type="text" placeholder="Search roles, companies, or skills (e.g. LLM, PyTorch…)">
+    <button class="search-btn">Search Jobs</button>
+  </div>
+</section>
+
+<!-- ─── STATS ─── -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num" id="statJobs">—</div>
+    <div class="stat-label">Active visa-sponsored roles</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">480<span>+</span></div>
+    <div class="stat-label">Fresher-friendly companies</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">28</div>
+    <div class="stat-label">European countries covered</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">€<span>62k</span></div>
+    <div class="stat-label">Avg. entry-level salary</div>
+  </div>
+</div>
+
+<!-- ─── VISA GUIDE BANNER ─── -->
+<div class="visa-banner">
+  <div class="visa-banner-inner">
+    <div>
+      <h2>🛂 How EU Visa Sponsorship Works for AI Freshers</h2>
+      <p>Most European countries offer an <strong>EU Blue Card</strong> for skilled non-EU tech workers. Your employer handles the paperwork — you just need a job offer.</p>
+      <div class="visa-steps">
+        <div class="visa-step"><div class="step-num">1</div> Get a job offer from an EU company</div>
+        <div class="visa-step"><div class="step-num">2</div> Employer submits sponsorship application</div>
+        <div class="visa-step"><div class="step-num">3</div> Receive work permit (typically 3–8 weeks)</div>
+        <div class="visa-step"><div class="step-num">4</div> Relocate &amp; onboard</div>
+      </div>
+    </div>
+    <button class="learn-btn">Full Visa Guide →</button>
+  </div>
+</div>
+
+<!-- ─── MAIN ─── -->
+<div class="main-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h3>Filter Jobs</h3>
+
+    <div class="filter-group">
+      <span class="filter-label">Role Type</span>
+      <div class="filter-chips">
+        <span class="chip on" onclick="this.classList.toggle('on')">AI Engineer</span>
+        <span class="chip on" onclick="this.classList.toggle('on')">ML Engineer</span>
+        <span class="chip on" onclick="this.classList.toggle('on')">DL Engineer</span>
+        <span class="chip" onclick="this.classList.toggle('on')">MLOps</span>
+        <span class="chip" onclick="this.classList.toggle('on')">Data Scientist</span>
+        <span class="chip" onclick="this.classList.toggle('on')">NLP Engineer</span>
+        <span class="chip" onclick="this.classList.toggle('on')">CV Engineer</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Experience Level</span>
+      <div class="filter-chips">
+        <span class="chip teal on" onclick="this.classList.toggle('on')">Fresher (0–1 yr)</span>
+        <span class="chip teal on" onclick="this.classList.toggle('on')">Junior (1–2 yr)</span>
+        <span class="chip teal" onclick="this.classList.toggle('on')">Mid-Level</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Visa Type</span>
+      <div class="filter-chips">
+        <span class="chip on" onclick="this.classList.toggle('on')">EU Blue Card</span>
+        <span class="chip" onclick="this.classList.toggle('on')">National Visa</span>
+        <span class="chip" onclick="this.classList.toggle('on')">ICT Permit</span>
+        <span class="chip" onclick="this.classList.toggle('on')">Talent Visa</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Country</span>
+      <div class="filter-chips">
+        <span class="chip on" onclick="this.classList.toggle('on')">🇩🇪 Germany</span>
+        <span class="chip on" onclick="this.classList.toggle('on')">🇳🇱 Netherlands</span>
+        <span class="chip" onclick="this.classList.toggle('on')">🇫🇷 France</span>
+        <span class="chip" onclick="this.classList.toggle('on')">🇸🇪 Sweden</span>
+        <span class="chip" onclick="this.classList.toggle('on')">🇨🇭 Switzerland</span>
+        <span class="chip" onclick="this.classList.toggle('on')">🇵🇱 Poland</span>
+        <span class="chip" onclick="this.classList.toggle('on')">🇵🇹 Portugal</span>
+        <span class="chip" onclick="this.classList.toggle('on')">🇦🇹 Austria</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Work Mode</span>
+      <div class="filter-chips">
+        <span class="chip on" onclick="this.classList.toggle('on')">On-site</span>
+        <span class="chip on" onclick="this.classList.toggle('on')">Hybrid</span>
+        <span class="chip" onclick="this.classList.toggle('on')">Remote</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Salary (€k/yr) &nbsp;<strong id="sal-val" style="color:var(--blue)">40–90</strong></span>
+      <input type="range" min="30" max="120" value="90"
+        oninput="document.getElementById('sal-val').textContent='40–'+this.value">
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Stack / Skills</span>
+      <div class="filter-chips">
+        <span class="chip on" onclick="this.classList.toggle('on')">Python</span>
+        <span class="chip on" onclick="this.classList.toggle('on')">PyTorch</span>
+        <span class="chip on" onclick="this.classList.toggle('on')">TensorFlow</span>
+        <span class="chip" onclick="this.classList.toggle('on')">HuggingFace</span>
+        <span class="chip" onclick="this.classList.toggle('on')">LLM</span>
+        <span class="chip" onclick="this.classList.toggle('on')">MLflow</span>
+        <span class="chip" onclick="this.classList.toggle('on')">Docker</span>
+        <span class="chip" onclick="this.classList.toggle('on')">Kubernetes</span>
+        <span class="chip" onclick="this.classList.toggle('on')">AWS/GCP</span>
+        <span class="chip" onclick="this.classList.toggle('on')">OpenCV</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Job Listings -->
+  <main>
+    <div class="jobs-header">
+      <div class="jobs-count" id="jobsCount"><strong>…</strong> loading live roles…</div>
+      <select class="sort-select" id="sortSelect">
+        <option value="recent">Sort: Most Recent</option>
+        <option value="company">Sort: Company A–Z</option>
+        <option value="remote">Sort: Remote First</option>
+      </select>
+    </div>
+
+    <div class="jobs-grid" id="jobsGrid">
+      <div id="loadingState" style="text-align:center;padding:3rem;color:var(--muted)">
+        <div style="width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;margin:0 auto 1rem;animation:spin .8s linear infinite"></div>
+        Fetching live visa-sponsored jobs…
+      </div>
+      <div id="errorState" style="display:none;text-align:center;padding:2.5rem;color:var(--red);background:var(--card);border:1px solid var(--border);border-radius:12px;font-size:.9rem;line-height:1.7"></div>
+    </div><!-- /jobs-grid -->
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination" style="display:none">
+      <button class="page-btn" id="prevBtn">‹ Prev</button>
+      <span id="pageInfo" style="display:flex;align-items:center;color:var(--muted);font-size:.85rem;padding:0 10px">Page 1</span>
+      <button class="page-btn" id="nextBtn">Next ›</button>
+    </div>
+
+  </main>
+</div><!-- /main-layout -->
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p><strong>EuroAI.jobs</strong> — Connecting fresh AI talent with visa-sponsoring European companies.</p>
+  <p style="margin-top:.5rem">© 2026 · Privacy · Terms · <a href="#" style="color:var(--blue);text-decoration:none">Contact</a></p>
+</footer>
+
+<script>
+/* ============================================================
+   LIVE JOBS — Arbeitnow free API (visa_sponsorship flag + real apply URLs)
+   Docs: https://www.arbeitnow.com/api/job-board-api
+   ============================================================ */
+const API_BASE = '/api/jobs'; // Vercel proxy → Arbeitnow (avoids CORS)
+
+let allJobs = [];        // visa-sponsored jobs accumulated
+let apiPage = 1;         // API page cursor
+let viewPage = 1;        // UI page
+const PER_PAGE = 12;
+let query = '';
+let activeCountries = new Set(); // empty = all
+let sortMode = 'recent';
+
+const grid      = document.getElementById('jobsGrid');
+const countEl   = document.getElementById('jobsCount');
+const loadEl    = document.getElementById('loadingState');
+const errEl     = document.getElementById('errorState');
+const pagEl     = document.getElementById('pagination');
+
+/* ---- Country detection from location string ---- */
+const COUNTRY_FLAGS = {
+  'germany': '🇩🇪', 'netherlands': '🇳🇱', 'france': '🇫🇷', 'sweden': '🇸🇪',
+  'switzerland': '🇨🇭', 'spain': '🇪🇸', 'austria': '🇦🇹', 'belgium': '🇧🇪',
+  'denmark': '🇩🇰', 'finland': '🇫🇮', 'ireland': '🇮🇪', 'italy': '🇮🇹',
+  'poland': '🇵🇱', 'portugal': '🇵🇹', 'norway': '🇳🇴', 'remote': '🌍'
+};
+function detectCountry(loc) {
+  const l = (loc || '').toLowerCase();
+  for (const c in COUNTRY_FLAGS) if (l.includes(c)) return c;
+  return null;
+}
+
+/* ---- Fetch up to N API pages, keep visa_sponsorship === true ---- */
+async function fetchJobs(maxPages = 5) {
+  loadEl.style.display = 'block';
+  errEl.style.display = 'none';
+  try {
+    for (let p = 1; p <= maxPages; p++) {
+      const r = await fetch(`${API_BASE}?page=${p}`);
+      if (!r.ok) throw new Error(`API returned ${r.status}`);
+      const json = await r.json();
+      const batch = (json.data || []).filter(j => j.visa_sponsorship === true);
+      allJobs.push(...batch);
+      if (!json.links || !json.links.next) break;
+    }
+    loadEl.style.display = 'none';
+    if (allJobs.length === 0) {
+      showError('No visa-sponsored roles found right now. The API may have rotated listings — try again later.');
+      return;
+    }
+    render();
+  } catch (e) {
+    loadEl.style.display = 'none';
+    let msg = `Could not load jobs: ${e.message}.`;
+    if (e.message.includes('Failed to fetch') || e.message.includes('NetworkError')) {
+      msg += `<br><br>Note: this page must be deployed on Vercel with the /api/jobs.js proxy file — it won't work opened directly as a local file.`;
+    }
+    showError(msg);
+  }
+}
+
+function showError(html) {
+  errEl.innerHTML = html;
+  errEl.style.display = 'block';
+}
+
+/* ---- Filter + sort + paginate + render ---- */
+function getFiltered() {
+  let list = allJobs;
+  if (query) {
+    const q = query.toLowerCase();
+    list = list.filter(j =>
+      (j.title || '').toLowerCase().includes(q) ||
+      (j.company_name || '').toLowerCase().includes(q) ||
+      (j.tags || []).join(' ').toLowerCase().includes(q) ||
+      (j.location || '').toLowerCase().includes(q)
+    );
+  }
+  if (activeCountries.size > 0) {
+    list = list.filter(j => {
+      const c = detectCountry(j.location) || (j.remote ? 'remote' : null);
+      return c && activeCountries.has(c);
+    });
+  }
+  if (sortMode === 'recent')  list = [...list].sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+  if (sortMode === 'company') list = [...list].sort((a, b) => (a.company_name || '').localeCompare(b.company_name || ''));
+  if (sortMode === 'remote')  list = [...list].sort((a, b) => (b.remote === true) - (a.remote === true));
+  return list;
+}
+
+function timeAgo(ts) {
+  if (!ts) return '';
+  const days = Math.floor((Date.now() / 1000 - ts) / 86400);
+  if (days <= 0) return 'today';
+  if (days === 1) return '1 day ago';
+  if (days < 30) return `${days} days ago`;
+  return `${Math.floor(days / 30)} mo ago`;
+}
+
+function esc(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+const LOGO_EMOJI = ['🤖','🧠','🔬','⚙️','🛰️','📡','🧪','💡','🚀','🦾'];
+
+function render() {
+  const list = getFiltered();
+  const totalPages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+  viewPage = Math.min(viewPage, totalPages);
+  const slice = list.slice((viewPage - 1) * PER_PAGE, viewPage * PER_PAGE);
+
+  countEl.innerHTML = `<strong>${list.length}</strong> visa-sponsored roles found <span style="font-size:.78rem;color:var(--muted)">· live via Arbeitnow</span>`;
+
+  grid.querySelectorAll('.job-card').forEach(c => c.remove());
+
+  slice.forEach((j, i) => {
+    const country = detectCountry(j.location);
+    const flag = country ? COUNTRY_FLAGS[country] : '🇪🇺';
+    const countryLabel = country ? country.charAt(0).toUpperCase() + country.slice(1) : 'Europe';
+    const tags = (j.tags || []).slice(0, 4);
+    const jobTypes = (j.job_types || []).slice(0, 2);
+
+    const card = document.createElement('div');
+    card.className = 'job-card';
+    card.innerHTML = `
+      <div class="company-logo">${LOGO_EMOJI[(viewPage * PER_PAGE + i) % LOGO_EMOJI.length]}</div>
+      <div class="job-main">
+        <div class="job-title">${esc(j.title)}</div>
+        <div class="job-company"><strong>${esc(j.company_name)}</strong> · ${esc(j.location || 'Europe')}</div>
+        <div class="job-tags">
+          <span class="tag tag-visa">✓ Visa Sponsorship</span>
+          <span class="tag tag-loc">${flag} ${esc(countryLabel)}</span>
+          ${j.remote ? '<span class="tag tag-fresh">Remote OK</span>' : ''}
+          ${jobTypes.map(t => `<span class="tag tag-role">${esc(t)}</span>`).join('')}
+          ${tags.map(t => `<span class="tag tag-stack">${esc(t)}</span>`).join('')}
+        </div>
+      </div>
+      <div class="job-meta">
+        <div class="job-time">${timeAgo(j.created_at)}</div>
+        <a class="apply-btn" href="${esc(j.url)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;text-align:center;display:inline-block">Apply Now ↗</a>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  pagEl.style.display = totalPages > 1 ? 'flex' : 'none';
+  document.getElementById('pageInfo').textContent = `Page ${viewPage} / ${totalPages}`;
+  document.getElementById('prevBtn').disabled = viewPage <= 1;
+  document.getElementById('nextBtn').disabled = viewPage >= totalPages;
+}
+
+/* ---- Wire controls ---- */
+document.getElementById('prevBtn').addEventListener('click', () => { viewPage--; render(); window.scrollTo({top: 400, behavior: 'smooth'}); });
+document.getElementById('nextBtn').addEventListener('click', () => { viewPage++; render(); window.scrollTo({top: 400, behavior: 'smooth'}); });
+document.getElementById('sortSelect').addEventListener('change', e => { sortMode = e.target.value; viewPage = 1; render(); });
+
+const searchInput = document.querySelector('.search-input');
+const searchBtn   = document.querySelector('.search-btn');
+function applySearch() { query = searchInput.value.trim(); viewPage = 1; render(); }
+if (searchBtn)   searchBtn.addEventListener('click', applySearch);
+if (searchInput) searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') applySearch(); });
+
+/* Country flag chips → live filter */
+document.querySelectorAll('.flag-chip').forEach(chip => {
+  chip.classList.remove('active'); // start with all countries
+  chip.addEventListener('click', () => {
+    chip.classList.toggle('active');
+    const name = chip.textContent.trim().split(' ').slice(1).join(' ').toLowerCase();
+    if (chip.classList.contains('active')) activeCountries.add(name);
+    else activeCountries.delete(name);
+    viewPage = 1; render();
+  });
+});
+
+/* Sidebar skill chips → also filter as search terms */
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    query = chip.classList.contains('on') ? chip.textContent.trim() : '';
+    if (searchInput) searchInput.value = query;
+    viewPage = 1; render();
+  });
+});
+
+/* spin keyframes for loader */
+const styleEl = document.createElement('style');
+styleEl.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+document.head.appendChild(styleEl);
+
+const _origRender = render;
+render = function() {
+  _origRender();
+  const total = allJobs.length;
+  const lc = document.getElementById('liveCount');
+  const sj = document.getElementById('statJobs');
+  if (lc) lc.textContent = total;
+  if (sj) sj.textContent = total;
+};
+
+fetchJobs();
+</script>
+
+</body>
+</html>
