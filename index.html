@@ -418,11 +418,6 @@
     <div class="flag-chip">🇸🇪 Sweden</div>
     <div class="flag-chip">🇨🇭 Switzerland</div>
     <div class="flag-chip">🇪🇸 Spain</div>
-    <div class="flag-chip">🇬🇧 UK</div>
-    <div class="flag-chip">🇺🇸 USA</div>
-    <div class="flag-chip">🇮🇪 Ireland</div>
-    <div class="flag-chip">🇸🇬 Singapore</div>
-    <div class="flag-chip">🇯🇵 Japan</div>
     <div class="flag-chip">🇵🇱 Poland</div>
     <div class="flag-chip">🇦🇹 Austria</div>
     <div class="flag-chip">🇵🇹 Portugal</div>
@@ -561,7 +556,6 @@
     <div class="jobs-header">
       <div class="jobs-count" id="jobsCount"><strong>…</strong> loading live roles…</div>
       <div style="display:flex;gap:10px;align-items:center">
-        <button id="visaToggle" style="background:rgba(59,130,246,0.1);border:1px solid var(--blue);color:var(--blue);padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif">✓ Visa: ON</button>
         <button id="fresherToggle" style="background:rgba(34,197,94,0.1);border:1px solid var(--green);color:var(--green);padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif">🎓 Fresher Only: ON</button>
       <select class="sort-select" id="sortSelect">
         <option value="recent">Sort: Most Recent</option>
@@ -619,32 +613,20 @@ const pagEl     = document.getElementById('pagination');
 /* ---- Country detection from location string ---- */
 const COUNTRY_FLAGS = {
   'germany': '🇩🇪', 'netherlands': '🇳🇱', 'france': '🇫🇷', 'sweden': '🇸🇪',
-  'switzerland': '🇨🇭', 'spain': '🇪🇸', 'ireland': '🇮🇪', 'uk': '🇬🇧',
-  'usa': '🇺🇸', 'singapore': '🇸🇬', 'japan': '🇯🇵', 'remote': '🌍'
-};
-const COUNTRY_PATTERNS = {
-  'uk':          ['united kingdom', 'london', 'manchester', 'edinburgh', 'cambridge', ', uk'],
-  'usa':         ['united states', 'usa', ', us', 'new york', 'san francisco', 'seattle', 'austin', 'boston', 'chicago', ', ny', ', ca', ', tx', ', wa'],
-  'japan':       ['japan', 'tokyo', 'osaka'],
-  'singapore':   ['singapore'],
-  'ireland':     ['ireland', 'dublin'],
-  'germany':     ['germany', 'berlin', 'munich', 'münchen', 'hamburg', 'frankfurt', 'cologne', 'köln', 'stuttgart', 'düsseldorf'],
-  'netherlands': ['netherlands', 'amsterdam', 'eindhoven', 'rotterdam', 'utrecht'],
-  'france':      ['france', 'paris', 'lyon'],
-  'sweden':      ['sweden', 'stockholm'],
-  'switzerland': ['switzerland', 'zurich', 'zürich', 'geneva'],
-  'spain':       ['spain', 'madrid', 'barcelona']
+  'switzerland': '🇨🇭', 'spain': '🇪🇸', 'austria': '🇦🇹', 'belgium': '🇧🇪',
+  'denmark': '🇩🇰', 'finland': '🇫🇮', 'ireland': '🇮🇪', 'italy': '🇮🇹',
+  'poland': '🇵🇱', 'portugal': '🇵🇹', 'norway': '🇳🇴', 'remote': '🌍'
 };
 function detectCountry(loc) {
   const l = (loc || '').toLowerCase();
-  for (const c in COUNTRY_PATTERNS) {
-    if (COUNTRY_PATTERNS[c].some(p => l.includes(p))) return c;
-  }
+  for (const c in COUNTRY_FLAGS) if (l.includes(c)) return c;
   return null;
 }
 
-/* ---- Single call: proxy aggregates 4 sources server-side ---- */
-let visaToggleOn = true;
+/* ---- Single call: proxy aggregates API pages server-side ---- */
+let visaOnly = true;
+let allJobsRaw = [];
+let fresherOnly = true;
 
 async function fetchJobs() {
   loadEl.style.display = 'block';
@@ -654,18 +636,25 @@ async function fetchJobs() {
     if (!r.ok) throw new Error(`API returned ${r.status}`);
     const json = await r.json();
 
-    allJobs = json.all_jobs || [];
-    const visaCount = json.visa_count || 0;
+    allJobsRaw = json.all_jobs || [];
+    const visaJobs = json.visa_jobs || [];
 
-    if (visaCount === 0) {
-      visaToggleOn = false;
-      const vb = document.getElementById('visaToggle');
-      if (vb) { vb.textContent = '✓ Visa: OFF'; vb.style.opacity = '0.5'; }
+    if (visaJobs.length > 0) {
+      allJobs = visaJobs;
+      visaOnly = true;
+    } else {
+      allJobs = allJobsRaw;
+      visaOnly = false;
+      const notice = document.createElement('div');
+      notice.id = 'visaNotice';
+      notice.style.cssText = 'background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.4);color:var(--amber);padding:12px 18px;border-radius:10px;font-size:.85rem;margin-bottom:14px;line-height:1.6';
+      notice.innerHTML = '⚠ No jobs are <strong>visa-flagged</strong> on the source right now — showing all latest EU roles instead. Many German companies sponsor visas even when not flagged; check each listing.';
+      grid.prepend(notice);
     }
 
     loadEl.style.display = 'none';
     if (allJobs.length === 0) {
-      showError('All job sources returned empty. Try again in a few minutes.');
+      showError('The job source returned no listings at all. Try again in a few minutes.');
       return;
     }
     render();
@@ -688,7 +677,6 @@ function showError(html) {
 function getFiltered() {
   let list = allJobs;
   if (fresherOnly) list = list.filter(j => j.fresher === true);
-  if (visaToggleOn) list = list.filter(j => j.visa_sponsorship === true);
   if (query) {
     const q = query.toLowerCase();
     list = list.filter(j =>
@@ -731,7 +719,7 @@ function render() {
   viewPage = Math.min(viewPage, totalPages);
   const slice = list.slice((viewPage - 1) * PER_PAGE, viewPage * PER_PAGE);
 
-  countEl.innerHTML = `<strong>${list.length}</strong> roles found <span style="font-size:.78rem;color:var(--muted)">· 4 live sources</span>`;
+  countEl.innerHTML = `<strong>${list.length}</strong> ${visaOnly ? 'visa-sponsored' : 'EU'} roles found <span style="font-size:.78rem;color:var(--muted)">· live: Arbeitnow + EURES</span>`;
 
   grid.querySelectorAll('.job-card').forEach(c => c.remove());
 
@@ -807,13 +795,6 @@ document.querySelectorAll('.chip').forEach(chip => {
 const styleEl = document.createElement('style');
 styleEl.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
 document.head.appendChild(styleEl);
-
-document.getElementById('visaToggle').addEventListener('click', function() {
-  visaToggleOn = !visaToggleOn;
-  this.textContent = visaToggleOn ? '✓ Visa: ON' : '✓ Visa: OFF';
-  this.style.opacity = visaToggleOn ? '1' : '0.5';
-  viewPage = 1; render();
-});
 
 document.getElementById('fresherToggle').addEventListener('click', function() {
   fresherOnly = !fresherOnly;
